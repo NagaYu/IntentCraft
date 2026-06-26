@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="560" viewBox="0 0 900 560" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace">
+  <defs>
+    <linearGradient id="term" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1b1b22"/><stop offset="1" stop-color="#131318"/>
+    </linearGradient>
+    <style>
+      text { font-size: 16px; }
+      .kw{fill:#ff7ab2}.ty{fill:#7ee787}.at{fill:#d2a8ff}.str{fill:#a5d6ff}.pl{fill:#e6edf3}.cm{fill:#8b949e}
+      .cyan{fill:#56b6c2}.green{fill:#27c93f}.dim{fill:#6e6e76}
+      /* progressive reveal — one 11s loop, lines fade in on a stagger and reset cleanly */
+      .ln{opacity:0}
+      .l0 {animation:r0 11s infinite}  .l1 {animation:r1 11s infinite}
+      .l2 {animation:r2 11s infinite}  .l3 {animation:r3 11s infinite}
+      .l4 {animation:r4 11s infinite}  .l5 {animation:r5 11s infinite}
+      .l6 {animation:r6 11s infinite}  .l7 {animation:r7 11s infinite}
+      .l8 {animation:r8 11s infinite}  .l9 {animation:r9 11s infinite}
+      .l10{animation:r10 11s infinite} .l11{animation:r11 11s infinite}
+      .l12{animation:r12 11s infinite} .l13{animation:r13 11s infinite}
+      @keyframes r0 {0%,5%{opacity:0}7%,95%{opacity:1}100%{opacity:0}}
+      @keyframes r1 {0%,11%{opacity:0}13%,95%{opacity:1}100%{opacity:0}}
+      @keyframes r2 {0%,16%{opacity:0}18%,95%{opacity:1}100%{opacity:0}}
+      @keyframes r3 {0%,21%{opacity:0}23%,95%{opacity:1}100%{opacity:0}}
+      @keyframes r4 {0%,26%{opacity:0}28%,95%{opacity:1}100%{opacity:0}}
+      @keyframes r5 {0%,31%{opacity:0}33%,95%{opacity:1}100%{opacity:0}}
+      @keyframes r6 {0%,36%{opacity:0}38%,95%{opacity:1}100%{opacity:0}}
+      @keyframes r7 {0%,41%{opacity:0}43%,95%{opacity:1}100%{opacity:0}}
+      @keyframes r8 {0%,46%{opacity:0}48%,95%{opacity:1}100%{opacity:0}}
+      @keyframes r9 {0%,51%{opacity:0}53%,95%{opacity:1}100%{opacity:0}}
+      @keyframes r10{0%,56%{opacity:0}58%,95%{opacity:1}100%{opacity:0}}
+      @keyframes r11{0%,61%{opacity:0}63%,95%{opacity:1}100%{opacity:0}}
+      @keyframes r12{0%,68%{opacity:0}70%,95%{opacity:1}100%{opacity:0}}
+      @keyframes r13{0%,74%{opacity:0}76%,95%{opacity:1}100%{opacity:0}}
+      .cursor{animation:blink 1s steps(1) infinite}
+      @keyframes blink{0%,50%{opacity:1}50.01%,100%{opacity:0}}
+    </style>
+  </defs>
+
+  <rect width="900" height="560" rx="14" fill="url(#term)" stroke="#33333c"/>
+  <!-- title bar -->
+  <rect width="900" height="40" rx="14" fill="#26262d"/><rect y="26" width="900" height="14" fill="#26262d"/>
+  <circle cx="24" cy="20" r="6" fill="#ff5f56"/><circle cx="44" cy="20" r="6" fill="#ffbd2e"/><circle cx="64" cy="20" r="6" fill="#27c93f"/>
+  <text x="450" y="25" text-anchor="middle" font-size="13" class="dim">intentcraft — zsh</text>
+
+  <g transform="translate(28,74)">
+    <!-- static prompt -->
+    <text><tspan class="green">➜</tspan><tspan class="cyan">  ~/MyApp</tspan><tspan class="pl"> intentcraft TaskStore.swift</tspan></text>
+
+    <text class="ln l0"  y="34"><tspan class="cyan">●</tspan><tspan class="pl"> Analyzing TaskStore.swift with Apple's on-device model…</tspan></text>
+
+    <text class="ln l1 dim"  y="74">──────────────────── Generated App Intents ────────────────────</text>
+    <text class="ln l2"  y="100"><tspan class="kw">import</tspan><tspan class="pl"> AppIntents</tspan></text>
+    <text class="ln l3"  y="124"><tspan class="cm">// MARK: - App Intents</tspan></text>
+    <text class="ln l4"  y="148"><tspan class="kw">struct</tspan><tspan class="ty"> AddTaskIntent</tspan><tspan class="pl">: </tspan><tspan class="ty">AppIntent</tspan><tspan class="pl"> {</tspan></text>
+    <text class="ln l5"  y="172"><tspan class="pl">  </tspan><tspan class="kw">static var</tspan><tspan class="pl"> title: </tspan><tspan class="ty">LocalizedStringResource</tspan><tspan class="pl"> = </tspan><tspan class="str">"Add Task"</tspan></text>
+    <text class="ln l6"  y="196"><tspan class="at">  @Parameter</tspan><tspan class="pl">(title: </tspan><tspan class="str">"Title"</tspan><tspan class="pl">) </tspan><tspan class="kw">var</tspan><tspan class="pl"> title: </tspan><tspan class="ty">String</tspan></text>
+    <text class="ln l7"  y="220"><tspan class="pl">  </tspan><tspan class="kw">func</tspan><tspan class="pl"> </tspan><tspan class="ty">perform</tspan><tspan class="pl">() </tspan><tspan class="kw">async throws</tspan><tspan class="pl"> -&gt; </tspan><tspan class="kw">some</tspan><tspan class="ty"> IntentResult</tspan><tspan class="pl"> {</tspan></text>
+    <text class="ln l8"  y="244"><tspan class="pl">    TaskStore.shared.</tspan><tspan class="ty">addTask</tspan><tspan class="pl">(title: title)</tspan></text>
+    <text class="ln l9"  y="268"><tspan class="pl">    </tspan><tspan class="kw">return</tspan><tspan class="pl"> .result()</tspan></text>
+    <text class="ln l10" y="292"><tspan class="pl">  } }</tspan></text>
+    <text class="ln l11" y="316"><tspan class="cm">// MARK: - App Shortcuts</tspan></text>
+    <text class="ln l12" y="340"><tspan class="kw">struct</tspan><tspan class="ty"> TaskShortcuts</tspan><tspan class="pl">: </tspan><tspan class="ty">AppShortcutsProvider</tspan><tspan class="pl"> { … }</tspan></text>
+
+    <text class="ln l13" y="384"><tspan class="green">✓ Done</tspan><tspan class="dim"> · 100% on-device · nothing left your Mac</tspan><tspan class="cursor pl"> ▌</tspan></text>
+  </g>
+</svg>

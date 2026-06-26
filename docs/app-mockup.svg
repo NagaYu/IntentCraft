@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="700" viewBox="0 0 1100 700" font-family="-apple-system, 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif">
+  <defs>
+    <linearGradient id="win" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a2a2e"/><stop offset="1" stop-color="#202024"/>
+    </linearGradient>
+    <linearGradient id="prom" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#0a84ff"/><stop offset="1" stop-color="#0060df"/>
+    </linearGradient>
+    <style>
+      .mono { font-family:'SF Mono',Menlo,Consolas,monospace; }
+      .kw{fill:#ff7ab2}.ty{fill:#7ee787}.at{fill:#d2a8ff}.str{fill:#a5d6ff}.pl{fill:#e6edf3}.cm{fill:#8b949e}
+      .lbl{fill:#8e8e93;font-size:14px;font-weight:600}
+    </style>
+    <filter id="sh" x="-10%" y="-10%" width="120%" height="120%"><feDropShadow dx="0" dy="14" stdDeviation="24" flood-color="#000" flood-opacity="0.45"/></filter>
+  </defs>
+
+  <rect width="1100" height="700" fill="#15151a"/>
+
+  <!-- window -->
+  <g filter="url(#sh)">
+    <rect x="50" y="40" width="1000" height="620" rx="14" fill="url(#win)" stroke="#3a3a40"/>
+
+    <!-- title bar -->
+    <rect x="50" y="40" width="1000" height="56" rx="14" fill="#28282d"/>
+    <rect x="50" y="78" width="1000" height="18" fill="#28282d"/>
+    <circle cx="76" cy="68" r="7" fill="#ff5f56"/><circle cx="98" cy="68" r="7" fill="#ffbd2e"/><circle cx="120" cy="68" r="7" fill="#27c93f"/>
+
+    <!-- header content -->
+    <text x="170" y="64" font-size="20">🪄</text>
+    <text x="198" y="62" font-size="17" font-weight="700" fill="#ffffff">IntentCraft</text>
+    <text x="198" y="80" font-size="12" fill="#8e8e93">On-device App Intents generator</text>
+    <!-- generate button -->
+    <rect x="858" y="50" width="172" height="36" rx="9" fill="url(#prom)"/>
+    <text x="944" y="73" text-anchor="middle" font-size="15" font-weight="600" fill="#ffffff">✨ Generate  ⌘↵</text>
+
+    <!-- LEFT pane -->
+    <text x="80" y="124" class="lbl">⌖ Your Swift code</text>
+    <rect x="78" y="134" width="448" height="430" rx="9" fill="#1c1c20" stroke="#3a3a40"/>
+    <g class="mono" font-size="14" transform="translate(96,162)">
+      <text y="0"><tspan class="kw">final class</tspan><tspan class="ty"> TaskStore</tspan><tspan class="pl"> {</tspan></text>
+      <text y="26"><tspan class="pl">  </tspan><tspan class="kw">static let</tspan><tspan class="pl"> shared = </tspan><tspan class="ty">TaskStore</tspan><tspan class="pl">()</tspan></text>
+      <text y="60"><tspan class="cm">  /// Add a new task.</tspan></text>
+      <text y="84"><tspan class="pl">  </tspan><tspan class="kw">func</tspan><tspan class="pl"> </tspan><tspan class="ty">addTask</tspan><tspan class="pl">(title: </tspan><tspan class="ty">String</tspan><tspan class="pl">)</tspan></text>
+      <text y="104"><tspan class="pl">       -&gt; </tspan><tspan class="ty">TodoTask</tspan><tspan class="pl"> { … }</tspan></text>
+      <text y="138"><tspan class="cm">  /// Mark a task done.</tspan></text>
+      <text y="162"><tspan class="pl">  </tspan><tspan class="kw">func</tspan><tspan class="pl"> </tspan><tspan class="ty">completeTask</tspan><tspan class="pl">(named t: </tspan><tspan class="ty">String</tspan><tspan class="pl">)</tspan></text>
+      <text y="182"><tspan class="pl">       { … }</tspan></text>
+      <text y="216"><tspan class="pl">}</tspan></text>
+    </g>
+
+    <!-- RIGHT pane -->
+    <text x="552" y="124" class="lbl">⚙ Generated App Intents</text>
+    <rect x="838" y="110" width="92" height="26" rx="7" fill="#2f2f35" stroke="#46464d"/>
+    <text x="884" y="128" text-anchor="middle" font-size="13" fill="#d0d0d6">⧉ Copy</text>
+    <rect x="552" y="134" width="470" height="430" rx="9" fill="#101015" stroke="#3a3a40"/>
+    <g class="mono" font-size="13" transform="translate(568,160)">
+      <text y="0"><tspan class="kw">import</tspan><tspan class="pl"> AppIntents</tspan></text>
+      <text y="28"><tspan class="cm">// MARK: - App Intents</tspan></text>
+      <text y="52"><tspan class="kw">struct</tspan><tspan class="ty"> AddTaskIntent</tspan><tspan class="pl">: </tspan><tspan class="ty">AppIntent</tspan><tspan class="pl"> {</tspan></text>
+      <text y="74"><tspan class="pl">  </tspan><tspan class="kw">static var</tspan><tspan class="pl"> title: </tspan><tspan class="ty">LocalizedStringResource</tspan></text>
+      <text y="92"><tspan class="pl">    = </tspan><tspan class="str">"Add Task"</tspan></text>
+      <text y="120"><tspan class="at">  @Parameter</tspan><tspan class="pl">(title: </tspan><tspan class="str">"Title"</tspan><tspan class="pl">) </tspan><tspan class="kw">var</tspan><tspan class="pl"> title: </tspan><tspan class="ty">String</tspan></text>
+      <text y="148"><tspan class="pl">  </tspan><tspan class="kw">func</tspan><tspan class="pl"> </tspan><tspan class="ty">perform</tspan><tspan class="pl">() </tspan><tspan class="kw">async throws</tspan><tspan class="pl"> -&gt; </tspan><tspan class="kw">some</tspan><tspan class="ty"> IntentResult</tspan><tspan class="pl"> {</tspan></text>
+      <text y="166"><tspan class="pl">    TaskStore.shared.</tspan><tspan class="ty">addTask</tspan><tspan class="pl">(title: title)</tspan></text>
+      <text y="184"><tspan class="pl">    </tspan><tspan class="kw">return</tspan><tspan class="pl"> .result()</tspan></text>
+      <text y="202"><tspan class="pl">  }</tspan></text>
+      <text y="220"><tspan class="pl">}</tspan></text>
+      <text y="248"><tspan class="cm">// MARK: - App Shortcuts</tspan></text>
+      <text y="272"><tspan class="kw">struct</tspan><tspan class="ty"> TaskShortcuts</tspan><tspan class="pl">: </tspan><tspan class="ty">AppShortcutsProvider</tspan><tspan class="pl"> {</tspan></text>
+      <text y="290"><tspan class="pl">  …</tspan><tspan class="cm">  ▌</tspan></text>
+    </g>
+
+    <!-- status bar -->
+    <rect x="78" y="578" width="944" height="6" rx="3" fill="#2f2f35"/>
+    <rect x="78" y="578" width="944" height="6" rx="3" fill="url(#prom)"/>
+    <text x="80" y="612" font-size="13" fill="#27c93f">● Done</text>
+    <text x="1022" y="612" text-anchor="end" font-size="12" fill="#6e6e76">100% on-device · powered by Apple FoundationModels</text>
+  </g>
+</svg>

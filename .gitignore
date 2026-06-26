@@ -1,0 +1,25 @@
+# Swift Package Manager
+.build/
+.swiftpm/
+Package.resolved.bak
+
+# Xcode
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+DerivedData/
+*.xcuserstate
+
+# Build artifacts / distribution output
+/dist/
+*.dmg
+*.app
+
+# macOS
+.DS_Store
+
+# Editor
+.vscode/
+*.swp
+
+# Local Claude Code settings
+.claude/
