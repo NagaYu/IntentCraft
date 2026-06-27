@@ -17,26 +17,53 @@ public enum IntentCraftPrompts {
     Shortcuts app, and the system AI.
 
     Hard rules — follow every one:
-    1. Output ONLY compilable Swift. No prose, no explanations, no markdown code fences anywhere \
-       inside the code fields.
-    2. For every action-like function, generate an `AppIntent` conforming type with a clear \
-       static `title`, a `perform()` that calls into the developer's existing type, and \
-       `@Parameter` properties (with `title:`) for each input the function needs.
-    3. For every domain data structure that an intent needs to accept or return, generate a \
-       matching `AppEntity` with a `TypeDisplayRepresentation`, a `DisplayRepresentation`, an \
-       `Identifiable` `id`, and a nested `EntityQuery` where appropriate.
-    4. Provide exactly one `AppShortcutsProvider` that registers natural-language Siri phrases \
-       for the generated intents, using the `\\(.$parameter)` phrase syntax where it adds value. \
-       Phrases must include the literal token `\\(.applicationName)`.
-    5. Prefer modern API: `static var title: LocalizedStringResource`, `func perform() async throws -> some IntentResult`, \
-       `@Parameter(title:)`, and return `.result(...)` / `.result(dialog:)` where it reads naturally.
-    6. Preserve the developer's existing type and method names exactly — call into them, do not \
-       reimplement their logic.
-    7. If the input is ambiguous, make the smallest reasonable assumption and still emit valid \
-       code rather than asking questions.
+    1. Each `code` field must contain ONE complete Swift type from its opening keyword \
+       (`struct`/`enum`/`final class`) through its closing brace. Never emit a fragment, a bare \
+       `static var`, or a loose function outside a type. No prose, no markdown fences.
+    2. An `AppIntent` type is exactly this shape — copy it precisely, only changing names/params:
+         struct <Name>Intent: AppIntent {
+             static let title: LocalizedStringResource = "<Human Title>"
+             @Parameter(title: "<Param>") var <param>: <Type>
+             func perform() async throws -> some IntentResult {
+                 <CallIntoDeveloperType>
+                 return .result()
+             }
+         }
+    3. An `AppEntity` type is exactly this shape:
+         struct <Name>Entity: AppEntity {
+             static var typeDisplayRepresentation: TypeDisplayRepresentation = "<Name>"
+             var displayRepresentation: DisplayRepresentation { DisplayRepresentation(title: "\\(<prop>)") }
+             static var defaultQuery = <Name>Query()
+             var id: <IdType>
+         }
+       Add a matching `struct <Name>Query: EntityQuery { ... }` as its own appEntities element when needed.
+    4. The `appShortcutsProvider` field must be exactly this shape — one provider only:
+         struct AppShortcuts: AppShortcutsProvider {
+             static var appShortcuts: [AppShortcut] {
+                 AppShortcut(intent: <Name>Intent(), phrases: ["<verb> in \\(.applicationName)"])
+             }
+         }
+       Every phrase string MUST contain the literal token \\(.applicationName).
+    5. Preserve the developer's existing type and method names exactly — CALL into them inside \
+       `perform()` (e.g. `TaskStore.shared.addTask(title: title)`); never reimplement their logic.
+    6. If the input is ambiguous, make the smallest reasonable assumption and still emit valid \
+       code rather than asking questions or leaving placeholders.
 
-    Write code the way Apple's own sample projects do: clean, minimal, and ready to paste into \
-    an Xcode target with no edits.
+    Worked example — for this input:
+        final class TaskStore { static let shared = TaskStore()
+            func addTask(title: String) -> TodoTask { ... } }
+    a correct `appIntents` element is:
+        struct AddTaskIntent: AppIntent {
+            static let title: LocalizedStringResource = "Add Task"
+            @Parameter(title: "Title") var title: String
+            func perform() async throws -> some IntentResult {
+                _ = TaskStore.shared.addTask(title: title)
+                return .result()
+            }
+        }
+
+    Write code the way Apple's own sample projects do: clean, minimal, every brace balanced, \
+    ready to paste into an Xcode target with no edits.
     """
 
     /// Build the per-request prompt that carries the developer's source.

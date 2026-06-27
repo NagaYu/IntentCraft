@@ -51,6 +51,17 @@ struct IntentCraftCoreTests {
         #expect(src.contains("Shortcuts: AppShortcutsProvider"))
     }
 
+    @Test("sanitize() truncates a code field to its first balanced type")
+    func sanitizeTruncatesArtifacts() {
+        // The on-device model sometimes leaks Guided-Generation array punctuation.
+        #expect(GeneratedIntentCode.sanitize("struct Q: EntityQuery { var t: String } }],")
+                == "struct Q: EntityQuery { var t: String }")
+        #expect(GeneratedIntentCode.sanitize("struct A: AppIntent { func perform() {} }")
+                == "struct A: AppIntent { func perform() {} }")
+        // No braces → returned trimmed, unchanged.
+        #expect(GeneratedIntentCode.sanitize("  import AppIntents  ") == "import AppIntents")
+    }
+
     @Test("Empty source is rejected before hitting the model")
     func emptySourceThrows() async {
         let gen = IntentCraftGenerator()

@@ -58,19 +58,47 @@ public extension GeneratedIntentCode {
             guard !types.isEmpty else { return }
             blocks.append("// MARK: - \(title)")
             for type in types {
-                blocks.append(type.code.trimmingCharacters(in: .whitespacesAndNewlines))
+                blocks.append(GeneratedIntentCode.sanitize(type.code))
             }
         }
 
         section("App Entities", appEntities)
         section("App Intents", appIntents)
 
-        let provider = appShortcutsProvider.trimmingCharacters(in: .whitespacesAndNewlines)
+        let provider = GeneratedIntentCode.sanitize(appShortcutsProvider)
         if !provider.isEmpty {
             blocks.append("// MARK: - App Shortcuts")
             blocks.append(provider)
         }
 
         return blocks.joined(separator: "\n\n") + "\n"
+    }
+
+    /// Clean a single `code` field coming back from the on-device model.
+    ///
+    /// The small on-device model occasionally leaks Guided-Generation array punctuation
+    /// (e.g. a trailing `}],`) into a `code` field. Each field is contractually ONE Swift
+    /// type, so we keep the source only up to the brace that balances the first `{`,
+    /// discarding any trailing junk. Inputs with no braces are returned trimmed as-is.
+    static func sanitize(_ raw: String) -> String {
+        let code = raw.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard let firstBrace = code.firstIndex(of: "{") else { return code }
+
+        var depth = 0
+        var endIndex: String.Index? = nil
+        var i = firstBrace
+        while i < code.endIndex {
+            let ch = code[i]
+            if ch == "{" {
+                depth += 1
+            } else if ch == "}" {
+                depth -= 1
+                if depth == 0 { endIndex = code.index(after: i); break }
+            }
+            i = code.index(after: i)
+        }
+
+        guard let end = endIndex else { return code } // unbalanced — leave untouched
+        return String(code[code.startIndex..<end]).trimmingCharacters(in: .whitespacesAndNewlines)
     }
 }

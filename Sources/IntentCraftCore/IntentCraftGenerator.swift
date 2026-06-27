@@ -138,16 +138,15 @@ public final class IntentCraftGenerator: Sendable {
             blocks.append("// MARK: - \(title)")
             for type in types {
                 if let code = type.code, !code.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                    blocks.append(code.trimmingCharacters(in: .whitespacesAndNewlines))
+                    blocks.append(GeneratedIntentCode.sanitize(code))
                 }
             }
         }
         section("App Entities", partial.appEntities)
         section("App Intents", partial.appIntents)
-        if let provider = partial.appShortcutsProvider?.trimmingCharacters(in: .whitespacesAndNewlines),
-           !provider.isEmpty {
+        if let provider = partial.appShortcutsProvider, !provider.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             blocks.append("// MARK: - App Shortcuts")
-            blocks.append(provider)
+            blocks.append(GeneratedIntentCode.sanitize(provider))
         }
         return blocks.joined(separator: "\n\n") + "\n"
     }
