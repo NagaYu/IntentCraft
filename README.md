@@ -15,7 +15,9 @@
 
 ### ▶︎ See it in action
 
-<img src="docs/demo.svg" alt="IntentCraft CLI generating App Intents code in real time" width="90%"/>
+<img src="docs/demo.gif" alt="IntentCraft generating App Intents code from real on-device output" width="80%"/>
+
+<sub>Real output from Apple's on-device model — TaskManager.swift → AppEntity + AppIntent + AppShortcutsProvider, generated entirely on-device.</sub>
 
 </div>
 
