@@ -6,8 +6,6 @@
 
 **Turn your existing Swift code into Siri & Apple Intelligence integrations — 100% on-device.**
 
-*既存の Swift コードから、Siri・Apple Intelligence 連携コードを自動生成。すべてあなたの Mac の中で完結。*
-
 [![Platform](https://img.shields.io/badge/platform-macOS%2026%2B-black?logo=apple)](https://www.apple.com/macos/)
 [![Swift](https://img.shields.io/badge/Swift-6.1-orange?logo=swift)](https://swift.org)
 [![FoundationModels](https://img.shields.io/badge/Apple-FoundationModels-blue?logo=apple)](https://developer.apple.com/documentation/foundationmodels)
@@ -22,8 +20,6 @@
 </div>
 
 ---
-
-## 🌍 English
 
 ### What is IntentCraft?
 
@@ -203,102 +199,6 @@ Issues and PRs welcome. The whole project builds with `swift build` and tests wi
 ### 📄 License
 
 [MIT](LICENSE) — free for personal and commercial use.
-
----
-
-## 🇯🇵 日本語
-
-### IntentCraft とは？
-
-**App Intents**（Siri・Spotlight・ショートカット App・**Apple Intelligence** からアプリを操作できる
-ようにするフレームワーク）に対応するには、`AppIntent` 型、`AppEntity` ラッパー、パラメータ宣言、
-`AppShortcutsProvider` といった定型コードを大量に書く必要があります。
-
-**IntentCraft は、あなたの既存の Swift 関数やデータ構造を読み取り、その定型コードを自動生成します。**
-利用するのは Apple 純正のオンデバイス LLM、[**FoundationModels**](https://developer.apple.com/documentation/foundationmodels) フレームワークです。
-
-> 🔒 **コードは Mac の外に出ません。** ソースコードはオンデバイスモデル（または Apple の Private
-> Cloud Compute）で処理され、第三者の API には一切送信されません。API キーもアカウントも料金も不要です。
-
-**コマンドラインツール (CLI)** と **ネイティブ macOS アプリ** の両方を提供し、コアエンジンを共有します。
-
-### ✨ 特長
-
-- 🧠 **オンデバイス生成** — Apple FoundationModels（Apple Intelligence）で動作。完全オフライン。
-- 🔁 **Guided Generation** — 構造化出力（`@Generable` / `@Guide`）を使い、解説文なしの
-  「そのままコンパイルできる Swift コード」のみを出力。
-- 🧩 **フルスタックを生成** — `AppIntent`、`AppEntity`、`@Parameter`、自然言語の Siri フレーズ付き
-  `AppShortcutsProvider` まで。
-- 💻 **2つの UI・1つのエンジン** — スクリプト可能な CLI と、ドラッグ＆ドロップ対応の SwiftUI アプリが
-  同じ `IntentCraftCore` を共有。
-- 🎨 **見やすい出力** — ターミナルではシンタックスハイライト付きストリーミング、アプリではコピーボタン付き。
-- 🆓 **無料・MIT ライセンス** — 個人でも商用でも自由に利用可能。
-
-### 📋 動作要件
-
-- macOS **26 (Tahoe)** 以降（Apple Intelligence 対応 Mac）
-- *システム設定 ▸ Apple Intelligence と Siri* で **Apple Intelligence** が有効
-- ソースからビルドする場合は **Xcode 26 以降**（`@Generable` マクロは Xcode に同梱）
-
-### 📦 インストール
-
-#### 方法A — アプリをダウンロード
-[Releases](../../releases) から最新の `IntentCraft-x.y.z.dmg` を取得し、開いて **IntentCraft** を
-アプリケーションフォルダにドラッグするだけです。
-
-#### 方法B — ソースからビルド
-```bash
-git clone https://github.com/NagaYu/IntentCraft.git
-cd IntentCraft
-
-# CLI を /usr/local/bin にインストール
-./build.sh --cli
-
-# またはデスクトップアプリと配布用 .dmg を ./dist に生成
-./build.sh
-```
-
-> Xcode と Command Line Tools の両方がある場合は、ビルドを Xcode に向けてください：
-> `export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer`（build.sh が自動設定します）。
-
-### 🚀 使い方
-
-#### CLI
-
-```bash
-# 生成コードをターミナルにストリーミング表示（シンタックスハイライト付き）
-intentcraft Sources/MyApp/TaskStore.swift
-
-# ファイルに直接書き出し
-intentcraft Sources/MyApp/TaskStore.swift -o Sources/MyApp/AppIntents.swift
-
-# 最終結果のみ表示（ストリーミングなし）
-intentcraft TaskStore.swift --no-stream
-```
-
-| 引数・オプション | 説明 |
-| --- | --- |
-| `<input-file>` | Siri に公開したい処理が書かれた Swift ファイルのパス。 |
-| `-o, --output <path>` | 生成コードをターミナルではなくファイルに書き出す。 |
-| `--no-stream` | ストリーミングを無効化し、最終コードのみ表示。 |
-
-#### デスクトップアプリ
-
-1. **左ペイン** — `.swift` ファイルをドロップ、または関数・構造体を貼り付け。
-2. **⌘↵ / Generate** を押す。
-3. **右ペイン** — `AppIntent` / `AppEntity` コードがストリーミング表示。**Copy** でコピー。
-4. **下部バー** — 進捗を表示（*モデル確認 → 解析中 → 生成中 → 完了*）。
-
-### 🔐 プライバシー
-
-IntentCraft は FoundationModels の `SystemLanguageModel.default` を使用します。推論は **オンデバイス**、
-または大きなリクエストでは Apple の **Private Cloud Compute** 上で実行され、いずれも Apple の
-プライバシー境界の内側で完結します。あなたの機密コードが OpenAI・Anthropic・Google などの外部
-サービスに送られることは一切ありません。
-
-### 📄 ライセンス
-
-[MIT](LICENSE) — 個人・商用を問わず無料でご利用いただけます。
 
 ---
 
